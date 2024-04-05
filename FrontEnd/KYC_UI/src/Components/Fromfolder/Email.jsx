@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 const Email = ({ inputChange, email }) => {
+
+    Email.propTypes = {
+        inputChange: PropTypes.func.isRequired,
+        email: PropTypes.string
+    };
+
     const [focused, setFocused] = useState(false);
 
     const handleFocus = () => {
@@ -28,13 +35,13 @@ const Email = ({ inputChange, email }) => {
     };
 
     return (
-        <div className="form-group" style={{ position: 'relative',margin:'15px' }}>
-            <input 
+        <div className="form-group" style={{ position: 'relative', margin: '15px' }}>
+            <input
                 type="email"
-                name="email" 
-                id="email" 
+                name="email"
+                id="email"
                 className={`form-control ${focused ? 'focused' : ''}`}
-                onChange={inputChange} 
+                onChange={inputChange}
                 value={email}
                 onFocus={handleFocus}
                 onBlur={handleBlur}

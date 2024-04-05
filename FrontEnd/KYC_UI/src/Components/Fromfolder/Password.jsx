@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+
 
 const Password = ({ inputChange, password }) => {
+
+    Password.propTypes = {
+        inputChange: PropTypes.func.isRequired,
+        password: PropTypes.string.isRequired,
+    };
+
     const [focused, setFocused] = useState(false);
 
     const handleFocus = () => {

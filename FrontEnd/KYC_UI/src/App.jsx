@@ -1,14 +1,12 @@
 
-import './App.css'
-import Routing from './Components/Routing'
+import './App.css';
+import Routing from './Components/Routing';
 
 
 function App() {
   return (
     <div>
-
       <Routing />
-
     </div>
   )
 };

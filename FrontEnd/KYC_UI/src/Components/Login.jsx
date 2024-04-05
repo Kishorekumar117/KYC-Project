@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
-import { useDispatch } from 'react-redux';
-import { oldColor } from '../features/theme'
-import { login, logout } from '../features/user'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
+import { oldColor } from '../features/theme';
+import { login, logout } from '../features/user';
 
 function Login() {
     const dispatch = useDispatch();

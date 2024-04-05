@@ -7,8 +7,6 @@ import DefiningU from './Pages/DefiningU';
 import UploadKyc from './Pages/Logos/UploadKyc';
 import UserNav from './UserNav';
 
-import { useSelector } from 'react-redux'
-
 import axios from 'axios';
 
 function KycDoc() {
@@ -17,16 +15,6 @@ function KycDoc() {
   const [currentAddress, setCurrentAddress] = useState('');
   const [documentType, setDocumentType] = useState('');
 
-  const informationData = useSelector(state => state.information);
-
-  const showdata = () => {
-    alert('User ID:' + informationData.user_id +
-      'User Name:' + informationData.user_Name +
-      'Email:' + informationData.email +
-      'Password:' + informationData.password +
-      'Token:' + informationData.token +
-      'Role ID:' + informationData.role_id);
-  };
 
   const notify = (message) => {
     toast.warning(message, {
@@ -135,10 +123,6 @@ function KycDoc() {
 
 
   // ===============================================
-  const getId = () => {
-    alert(localStorage.getItem('user_Id'));
-    alert(currentAddress + " " + documentType + " " + selectedFile + ' ')
-  }
 
   return (
     <div className='container-fluid' style={{ backgroundColor: 'white', padding: '0px' }}>
@@ -215,7 +199,7 @@ function KycDoc() {
               <Col sm={12}>
                 <div style={{ flex: '1', paddingRight: '10px' }}>
                   {/* Place your image component here */}
-                  <img src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*sNM_Q6uUblHJr5IQ9MaySA.gif" alt="Your Image" style={{ width: '100%', height: '100%' }} />
+                  <img src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*sNM_Q6uUblHJr5IQ9MaySA.gif" alt="" style={{ width: '100%', height: '100%' }} />
                 </div>
               </Col>
             </Row>
@@ -224,7 +208,7 @@ function KycDoc() {
         <Row className="mt-3">
           <Col>
             <Button
-              variant={!currentAddress || !documentType || uploadProgress !== 100 ? "primary" : "primary"}
+              variant="primary"
               onClick={() => {
                 if (!(!currentAddress || !documentType || uploadProgress !== 100)) {
                   handleKYCUpload();

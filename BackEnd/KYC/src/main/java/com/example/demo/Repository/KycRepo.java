@@ -1,7 +1,6 @@
-package com.example.demo.Repository;
+package com.example.demo.repository;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.entity.KycDetails;
 
@@ -10,44 +9,11 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 
 @Repository
 public interface KycRepo extends JpaRepository<KycDetails, Integer> {
 
-//	@Modifying
-//	@Query(value = "INSERT INTO kyc_details(user_id,current_address,documents_type,path) VALUES (:user_id,:current_address, :documents_type, :path)", nativeQuery = true)
-//	int kyc_details_update(@Param("user_id") int intValue,@Param("current_address") String currentAddress,@Param("documents_type") String documentType,@Param("path") String fileOfPath);
-
-
-	
-//	@Modifying
-//	@Query(value =
-//    "WITH ins AS (" +
-//    "   INSERT INTO kyc_details(user_id, current_address, documents_type, path,extension) " +
-//    "   SELECT :userId, :currentAddress, :documentType, :fileContent , :filex "+ 
-//    "   FROM user_details ud " +
-//    "   WHERE ud.user_id = :userId " +
-//    "   AND NOT EXISTS (" +
-//    "       SELECT 1 FROM kyc_details kd " +
-//    "       WHERE kd.user_id = :userId " +
-//    "   )" +
-//    "   RETURNING user_id" +
-//    ")" +
-//    "UPDATE kyc_details " +
-//    "SET current_address = :currentAddress, " +
-//    "    documents_type = :documentType, " +
-//    "    path = :fileContent " +
-//    "WHERE user_id = :userId",
-//    nativeQuery = true)
-//	int kyc_details_update(@Param("userId") Integer userId,
-//            @Param("currentAddress") String currentAddress,
-//            @Param("documentType") String documentType,
-//            @Param("fileContent") byte[] fileContent,
-//            @Param("filex")String filex);
-//	
-	
 	
 	
 	@Modifying

@@ -1,46 +1,41 @@
 import React, { useState } from 'react';
+import { Button, Overlay, Popover } from 'react-bootstrap';
 
-const YourComponent = () => {
-  const [blink, setBlink] = useState(false);
+const MyComponent = () => {
+  const [showPopover, setShowPopover] = useState(false);
 
-  const handleClick1 = () => {
-    setBlink(true);
-    setTimeout(() => {
-      setBlink(false);
-    }, 10000); // Adjust blinking duration as needed
+  const handleFocus = () => {
+    setShowPopover(true);
   };
 
-  const handleClick2 = () => {
-    setBlink(!blink); // Toggle blinking state
-  };
-
-  const buttonStyle = {
-    marginRight: '10px',
-    // Define other styles here
-  };
-
-  const blinkStyle = {
-    animation: blink ? 'blink 1s linear infinite' : '',
-    backgroundColor: blink ? 'red' : '', // Change background color when blinking
+  const handleBlur = () => {
+    setShowPopover(false);
   };
 
   return (
     <div>
-      <button onClick={handleClick1} style={buttonStyle}>
-        Click 1
-      </button>
-      {/* <button onClick={handleClick2} style={blinkStyle}>
-        Click 2
-      </button> */}
-      <style>{`
-        @keyframes blink {
-          50% {
-            opacity: 0;
-          }
-        }
-      `}</style>
+      <Button
+        className="btn btn-lg btn-danger"
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+      >
+        Dismissible popover
+      </Button>
+
+      <Overlay
+        show={showPopover}
+        target={() => document.querySelector(".btn-lg.btn-danger")}
+        placement="auto"
+      >
+        <Popover id="popover-basic">
+          <Popover.Header as="h3">Dismissible popover</Popover.Header>
+          <Popover.Body>
+            And here's some amazing content. It's very engaging. Right?
+          </Popover.Body>
+        </Popover>
+      </Overlay>
     </div>
   );
 };
 
-export default YourComponent;
+export default MyComponent;

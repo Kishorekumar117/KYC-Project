@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+
 
 const ConfirmPassword = ({ inputChange, confirm_Password }) => {
+    ConfirmPassword.propTypes = {
+        inputChange: PropTypes.func.isRequired,
+        confirm_Password: PropTypes.string.isRequired,
+    };
+
     const [focused, setFocused] = useState(false);
 
     const handleFocus = () => {
@@ -29,13 +36,13 @@ const ConfirmPassword = ({ inputChange, confirm_Password }) => {
 
     return (
         <div className="form-group" style={{ position: 'relative', margin: '15px' }}>
-            <input 
-                
+            <input
+
                 type="password"
-                name="confirm_Password" 
-                id="confirm_Password" 
+                name="confirm_Password"
+                id="confirm_Password"
                 className={`form-control ${focused ? 'focused' : ''}`}
-                onChange={inputChange} 
+                onChange={inputChange}
                 value={confirm_Password}
                 onFocus={handleFocus}
                 onBlur={handleBlur}

@@ -27,7 +27,7 @@ function Profile() {
       <h2>Email : {user.email}</h2>
       <h2> {theme.color}</h2>
 
-      {/* <button onClick={showdata}>showdata</button> */}
+      <button onClick={showdata}>showdata</button>
 
 
     </div>

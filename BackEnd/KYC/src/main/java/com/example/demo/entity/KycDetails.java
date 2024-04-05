@@ -22,22 +22,22 @@ import lombok.Setter;
 @Entity
 public class KycDetails {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	    private Integer kyc_id;
-	private String current_address;
-	private String documents_type;
-	@Lob
-	@Column(name = "path", columnDefinition = "bytea")
-	private byte[] path;
-	private Integer user_id;
-	private String Extension;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer kycId; // Changed variable name to follow Java naming conventions
+    private String currentAddress; // Changed variable name to follow Java naming conventions
+    private String documentType; // Changed variable name to follow Java naming conventions
+    @Lob
+    @Column(name = "path", columnDefinition = "bytea")
+    private byte[] path;
+    private Integer userId; // Changed variable name to follow Java naming conventions
+    private String extension; // Changed variable name to follow Java naming conventions
 
-	@Override
-	public String toString() {
-		return "KycDetails [kyc_id=" + kyc_id + ", current_address=" + current_address + ", documents_type="
-				+ documents_type + ", path=" + Arrays.toString(path) + ", user_id=" + user_id + ", Extension="
-				+ Extension + "]";
-	}
-	
+    @Override
+    public String toString() {
+        return "KycDetails [kycId=" + kycId + ", currentAddress=" + currentAddress + ", documentType="
+                + documentType + ", path=" + Arrays.toString(path) + ", userId=" + userId + ", extension="
+                + extension + "]";
+    }
+
 }

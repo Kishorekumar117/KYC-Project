@@ -69,12 +69,14 @@ const AllUploads = () => {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
+    const displayLength = filteredUploads.length < 10 ? `0${filteredUploads.length}` : filteredUploads.length;
+
     return (
         <div className="file-upload-container">
             <div className="d-flex justify-content-between align-items-center mb-3">
                 <h2><UploadedFilesLogo /></h2>
                 <h5 className='p-1 mt-3' style={{ border: '1px solid rgb(145, 144, 144, 0.2)', boxShadow: '5px 5px 10px -1px rgb(145, 144, 144, 0.8)', borderRadius: '8px' }}>&nbsp;&nbsp;Number of User Upload:&nbsp;
-                    <font className='bg-warning' style={{ borderRadius: '8px' }}><b>&nbsp;{uploads.length}&nbsp;</b></font>&nbsp;</h5>
+                    <font className='bg-warning' style={{ borderRadius: '8px' }}><b>&nbsp;{displayLength}&nbsp;</b></font>&nbsp;</h5>
             </div>
             <div className="search-box mb-3 d-flex flex-column flex-md-row">
                 <input
@@ -86,6 +88,8 @@ const AllUploads = () => {
                     style={{ transition: 'box-shadow 0.3s', boxShadow: 'none' }}
                     onMouseOver={(e) => e.target.style.boxShadow = '0 0 5px rgba(0, 0, 0, 0.7)'}
                     onMouseOut={(e) => e.target.style.boxShadow = '0 0 5px rgba(0, 0, 0, 0.3)'}
+                    onFocus={(e) => e.target.style.boxShadow = '0 0 5px rgba(0, 0, 0, 0.7)'}
+                    onBlur={(e) => e.target.style.boxShadow = '0 0 5px rgba(0, 0, 0, 0.3)'}
                 />
                 <select
                     className="form-select flex-md-grow-1 mb-2 mb-md-0 mr-md-2 m-1"
@@ -93,6 +97,8 @@ const AllUploads = () => {
                     style={{ transition: 'box-shadow 0.3s', boxShadow: 'none', }}
                     onMouseOver={(e) => e.target.style.boxShadow = '0 0 5px rgba(0, 0, 0, 0.7)'}
                     onMouseOut={(e) => e.target.style.boxShadow = '0 0 5px rgba(0, 0, 0, 0.3)'}
+                    onFocus={(e) => e.target.style.boxShadow = '0 0 5px rgba(0, 0, 0, 0.7)'}
+                    onBlur={(e) => e.target.style.boxShadow = '0 0 5px rgba(0, 0, 0, 0.3)'}
                 >
                     {documentTypes.map(type => (
                         <option key={type} value={type}>{type}</option>
@@ -100,13 +106,16 @@ const AllUploads = () => {
                 </select>
             </div>
 
-
+           
+            
             <div className="container">
                 <div className="row">
                     {filteredUploads.map((upload, index) => (
                         <div key={upload.kyc_id || index} className="col-md-4 mb-4" >
+                            
                             <div className="card " style={{ backgroundColor: 'rgb(145, 144, 144, 0.1)' }}>
                                 <div className="card-body">
+
                                     <h3 className="card-text  p-1 m-2">{capitalizeFirstLetter(upload.user_name)}</h3><hr></hr>
                                     <p className="card-text"><strong>Email:</strong> {upload.email}</p>
                                     <p className="card-text"><strong>File Name:</strong> {upload.extension}</p>
@@ -124,16 +133,18 @@ const AllUploads = () => {
 
             {modalOpen && (
                 <div className="modal" style={modalStyle}>
-                    <span className="close" style={close} onClick={closeModal}>close</span>
-                    {selectedFile.extension.toLowerCase().match(/(jpg|jpeg|png|gif)$/) ? (
-                        <img src={`data:application/octet-stream;base64,${selectedFile.file_path}`} alt="Uploaded file" style={imageStyle} />
-                    ) : selectedFile.extension.toLowerCase().match(/(pdf)$/) ? (
-                        <embed src={`data:application/pdf;base64,${selectedFile.file_path}`} type="application/pdf" width="100%" height="500px" style={imageStyle} />
-                    ) : selectedFile.extension.toLowerCase().match(/(docx|doc)$/) ? (
-                        <div dangerouslySetInnerHTML={{ __html: selectedFile.htmlContent }} />
-                    ) : (
-                        <p>File type not supported for preview. Please download to view.</p>
-                    )}
+                    <button className="close btn btn-none" style={close} onClick={closeModal}> <span aria-hidden="true">&times;</span></button>
+                    {(() => {
+                        if (selectedFile.extension.toLowerCase().match(/(jpg|jpeg|png|gif)$/)) {
+                            return <img src={`data:application/octet-stream;base64,${selectedFile.file_path}`} alt="Uploaded file" style={imageStyle} />;
+                        } else if (selectedFile.extension.toLowerCase().match(/(pdf)$/)) {
+                            return <embed src={`data:application/pdf;base64,${selectedFile.file_path}`} type="application/pdf" width="100%" height="500px" style={imageStyle} />;
+                        } else if (selectedFile.extension.toLowerCase().match(/(docx|doc)$/)) {
+                            return <div dangerouslySetInnerHTML={{ __html: selectedFile.htmlContent }} />;
+                        } else {
+                            return <p>File type not supported for preview. Please download to view.</p>;
+                        }
+                    })()}
                 </div>
             )}
         </div>

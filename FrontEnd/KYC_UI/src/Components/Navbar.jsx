@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Logo from './Pages/Logos/Logo';
-import { Button, Modal } from 'react-bootstrap';
+import { Button, Modal, Overlay, Popover } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UserName from './Fromfolder/UserName';
@@ -13,6 +13,8 @@ import SignInLogo from './Pages/Logos/SignInLogo';
 import { useDispatch } from 'react-redux';
 import { setInformation } from '../features/information';
 import { useNavigate } from 'react-router-dom';
+
+
 
 function Navbar() {
     const [popReg, setPopReg] = useState(false);
@@ -34,7 +36,6 @@ function Navbar() {
     const handelShowReg = () => {
         resetForm();
         setPopReg(true);
-        // startResetTimer();
     };
 
     const handelCloseSig = () => {
@@ -43,8 +44,7 @@ function Navbar() {
     };
     const handelShowSig = () => {
         resetForm();
-        setPopSig(true)
-        // startResetTimer();
+        setPopSig(true);
     };
 
     const showReg = () => {
@@ -66,7 +66,7 @@ function Navbar() {
     };
 
     const startTimer = () => {
-        const timer = setTimeout(() => {
+        setTimeout(() => {
             handelShowSig();
         }, 3500); // 120000 milliseconds = 2 minutes
     };
@@ -156,10 +156,14 @@ function Navbar() {
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
-        var c1 = false;
-        var c2 = false;
-        var c3 = false;
-        var c4 = false;
+        let c1;
+        c1 = false;
+        let c2;
+        c2 = false;
+        let c3;
+        c3 = false;
+        let c4;
+        c4 = false;
         if (
             !formInputData.user_name ||
             !formInputData.email ||
@@ -245,7 +249,23 @@ function Navbar() {
                 });
         }
     };
-    const [name, setName] = useState(localStorage.getItem('user_Name'));
+
+    const [showPopover, setShowPopover] = useState(false);
+
+    const handleFocus = () => {
+        setShowPopover(true);
+    };
+
+    const handleBlur = () => {
+        setShowPopover(false);
+    };
+
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+    
+
 
     return (
         <div className='continer-fluid header sticky-top'>
@@ -260,7 +280,7 @@ function Navbar() {
                     <Modal.Body style={{ display: 'flex', backgroundColor: '#f0f0f0', borderTopLeftRadius: '10px', borderTopRightRadius: '10px' }}>
                         <div style={{ flex: '1', paddingRight: '10px' }}>
                             {/* Place your image component here */}
-                            <img src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*sNM_Q6uUblHJr5IQ9MaySA.gif" alt="Your Image" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            <img src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*sNM_Q6uUblHJr5IQ9MaySA.gif" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                         </div>
                         <div style={{ flex: '1', paddingLeft: '10px', padding: '20px', textAlign: 'center' }}>
                             <div>
@@ -307,7 +327,7 @@ function Navbar() {
                     <Modal.Body style={{ display: 'flex', backgroundColor: '#f0f0f0', borderTopLeftRadius: '10px', borderTopRightRadius: '10px' }}>
                         <div style={{ flex: '1', paddingRight: '10px' }}>
                             {/* Place your image component here */}
-                            <img src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*sNM_Q6uUblHJr5IQ9MaySA.gif" alt="Your Image" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            <img src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*sNM_Q6uUblHJr5IQ9MaySA.gif" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                         </div>
                         <div style={{ flex: '1', paddingLeft: '10px', padding: '20px', textAlign: 'center' }}>
                             <div>
@@ -337,52 +357,79 @@ function Navbar() {
                 </Modal>
 
             </div>
+            
 
-
-            <nav class="navbar navbar-expand-lg navbar-light " style={{ backgroundColor: ' #e3f2fd', boxShadow: '0px 0px 10px -1px rgb(128, 126, 123)' }}>
-                <div class="container-fluid">
-                    <a class="navbar-brand p-0" href="#" style={{ backgroundColor: ' rgb(57, 136, 160,0.2)', borderRadius: '10px' }}>
+            <nav className="navbar navbar-expand-lg navbar-light " style={{ backgroundColor: ' #e3f2fd', boxShadow: '0px 0px 10px -1px rgb(128, 126, 123)' }}>
+                <div className="container-fluid">
+                    <button className="navbar-brand p-0" style={{ backgroundColor: 'rgb(57, 136, 160,0.2)', borderRadius: '10px', border: 'none', cursor: 'pointer' }}>
                         <Logo></Logo>
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" ><b>Home</b></a>
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li className="nav-item">
+                                <button className="nav-link active" aria-current="page" ><b>Home</b></button>
                             </li>
 
                         </ul>
 
-                        <div class="d-flex">
+                        <div className="d-flex">
 
 
-                            {name !== null ?
+                            {localStorage.getItem('user_Name') !== null ?
                                 (
 
-                                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                        <li class="nav-item " >
-                                            <a class="nav-link active" aria-current="page"  ><b>Welcome : </b>{name}</a>
+                                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                                        <li className="nav-item " >
+
+                                            <button
+                                                className="btn"
+                                                onFocus={handleFocus}
+                                                onBlur={handleBlur}
+                                            >
+                                                <b>Welcome : </b>{capitalizeFirstLetter(localStorage.getItem('user_Name'))}
+                                            </button>
+
+                                            <Overlay
+                                                show={showPopover}
+                                                target={() => document.querySelector(".btn")}
+                                                placement="auto"
+                                            >
+                                                <Popover id="popover-basic"  >
+                                                    <Popover.Header as="h3"><b>Welcome : </b>{capitalizeFirstLetter(localStorage.getItem('user_Name'))}</Popover.Header>
+                                                    <Popover.Body>
+                                                        "Have a wonderful experience with the KYC project,{capitalizeFirstLetter(localStorage.getItem('user_Name'))}. Happy to see you here."<hr></hr>
+                                                        <button className='btn btn-none' >Settings</button><br/>
+                                                        <Button className='btn btn-light' onClick={() => { localStorage.clear(); reloadPage(); }}>Logout</Button>
+
+                                                    </Popover.Body>
+                                                </Popover>
+                                            </Overlay>
+
+
+
                                         </li>
                                         {localStorage.getItem('user_Name') === 'Admin' ?
                                             <button className='btn btn' onClick={() => { navigate('/AdminPort') }}>View Our Users Update</button>
                                             :
-                                            <button className='btn btn' onClick={() => { navigate('/KycDoc') }}>Update KYC</button>
+                                            <button className='btn btn' onClick={() => { navigate('/KycDoc') }}>Upload KYC Document</button>
                                         }
                                     </ul>
                                 ) :
                                 (
-                                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" aria-current="page" style={{ cursor: 'pointer' }} onClick={handelShowReg}>Register</a>
+                                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                                        <li className="nav-item">
+                                            <button className="nav-link active" aria-current="page" style={{ cursor: 'pointer' }} onClick={handelShowReg}>Register</button>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link active" aria-current="page" style={{ cursor: 'pointer' }} onClick={handelShowSig}>Login</a>
+                                        <li className="nav-item">
+                                            <button className="nav-link active" aria-current="page" style={{ cursor: 'pointer' }} onClick={handelShowSig}>Login</button>
                                         </li>
                                     </ul>
                                 )
                             }
+
 
 
 

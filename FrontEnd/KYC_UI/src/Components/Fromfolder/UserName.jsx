@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+
 
 const UserName = ({ inputChange, user_name }) => {
+
+    UserName.propTypes = {
+        inputChange: PropTypes.func.isRequired,
+        user_name: PropTypes.string
+    };
+
     const [focused, setFocused] = useState(false);
 
     const handleFocus = () => {
@@ -28,13 +36,13 @@ const UserName = ({ inputChange, user_name }) => {
     };
 
     return (
-        <div className="form-group" style={{ position: 'relative',margin:'15px' }}>
-            <input 
+        <div className="form-group" style={{ position: 'relative', margin: '15px' }}>
+            <input
                 type="text"
-                name="user_name" 
-                id="user_name" 
+                name="user_name"
+                id="user_name"
                 className={`form-control ${focused ? 'focused' : ''}`}
-                onChange={inputChange} 
+                onChange={inputChange}
                 value={user_name}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
